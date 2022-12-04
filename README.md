@@ -25,7 +25,7 @@ source envname/bin/activate
 ----> Clone this project
 
 ```
-git clone https://github.com/DavidDanso/todo-api.git
+git clone https://github.com/DavidDanso/unospace.git
 ```
 
 ----> Enter Project
@@ -34,7 +34,7 @@ git clone https://github.com/DavidDanso/todo-api.git
 cd projectName
 ```
 
-## How to connect Project to PostgreSQL database
+## How to connect Project to PostgreSQL
 
 #### 1. Download PostgreSQL [ https://www.postgresql.org ]
 
