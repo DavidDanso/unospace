@@ -94,14 +94,128 @@ Then Add Email, Username and Password
 <p align="center">
   Empty Feed
 </p>
-<img src="https://github.com/DavidDanso/todo-api/blob/main/static/images/UI/EMPTY.png" />
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/no-task.png" />
 </td> 
 <td width="50%">
 <br>
 <p align="center">
-  Display Todo's
+  Display Task
 </p>
-<img src="https://github.com/DavidDanso/todo-api/blob/main/static/images/UI/TODO.png" />
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/main-screen.png" />
+</td>
+</table>
+
+<table width="100%"> 
+<tr>
+<td width="50%">      
+&nbsp; 
+<br>
+<p align="center">
+  Task Overview
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/task-overview.png" />
+</td> 
+<td width="50%">
+<br>
+<p align="center">
+  Update Task
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/update-task.png" />
+</td>
+</table>
+
+<table width="100%"> 
+<tr>
+<td width="50%">      
+&nbsp; 
+<br>
+<p align="center">
+  Delete Task
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/delete-task.png" />
+</td> 
+<td width="50%">
+<br>
+<p align="center">
+  Create Task
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/create-task.png" />
+</td>
+</table>
+
+<table width="100%"> 
+<tr>
+<td width="50%">      
+&nbsp; 
+<br>
+<p align="center">
+  Display Completed Task
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/completed-task.png" />
+</td> 
+<td width="50%">
+<br>
+<p align="center">
+  User Profile
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/user-profile.png" />
+</td>
+</table>
+
+<table width="100%"> 
+<tr>
+<td width="50%">      
+&nbsp; 
+<br>
+<p align="center">
+  Create new Account
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/create-account.png" />
+</td> 
+<td width="50%">
+<br>
+<p align="center">
+  Login Page
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/login-page.png" />
+</td>
+</table>
+
+<table width="100%"> 
+<tr>
+<td width="50%">      
+&nbsp; 
+<br>
+<p align="center">
+  Reset Password
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/reset-password.png" />
+</td> 
+<td width="50%">
+<br>
+<p align="center">
+  Reset Password Sent
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/password-confirmation.png" />
+</td>
+</table>
+
+<table width="100%"> 
+<tr>
+<td width="50%">      
+&nbsp; 
+<br>
+<p align="center">
+  Set new Password
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/new-password.png" />
+</td> 
+<td width="50%">
+<br>
+<p align="center">
+  Reset Password Complete
+</p>
+<img src="https://github.com/DavidDanso/unospace/blob/main/static/app-UI/reset-complete.png" />
 </td>
 </table>
 
