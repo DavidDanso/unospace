@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="More than a Doc..." />
+    <meta
+      name="keywords"
+      content="Task, ToDo list, list, todo, django todo, To-Do List"
+    />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" />
+    <title>Login Page</title>
+
+    <!-- Preload CSS -->
+    <link rel="preload" as="style" href="{% static '/css/login.css' %}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/login.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!-- Show error messages -->
+        {% if messages %}
+        <!--  -->
+        {% for message in messages %}
+        <div
+          id="alert_message"
+          class="alert alert-{{message.tags}} alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>{{message}}!</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        {% endfor %}
+        <!--  -->
+        {% endif %}
+        <!--  -->
+
+        <!--=========================================== Hero-Section ===============================-->
+        <div id="hero">
+          <div class="container-fluid">
+            <div class="hero-intro">
+              <div id="return_link">
+                <a href="javascript:history.back()">
+                  <img
+                    id="return-link_img"
+                    src="{% static '/images/return_link-img.png' %}"
+                    class="img-fluid"
+                    alt="return-link_img"
+                  />
+                  <h6>return back</h6>
+                </a>
+              </div>
+              <!-- End return_link -->
+
+              <div id="account-form-container">
+                <div class="row">
+                  <div class="col-md-7">
+                    <div class="wrapper">
+                      <div class="line">
+                        <span>Welcome back!</span>
+                      </div>
+                      <!-- End line-->
+                    </div>
+                    <!-- End wrapper -->
+                    <p class="animate-this">
+                      Sign in to access your account. <span></span> Not
+                      registered?
+                      <a href="{% url 'create-account' %}">Create an account</a>
+                    </p>
+
+                    <!----------------------------- Create Account Form --------------------->
+                    <div id="login-form-container">
+                      <form
+                        class="row g-3"
+                        method="POST"
+                        action="{% url 'login' %}"
+                      >
+                        {% csrf_token %}
+                        <div class="mb-3" id="form-group">
+                          <label for="InputUsername" class="form-label"
+                            >Username<sup>*</sup></label
+                          >
+                          <input
+                            type="text"
+                            name="username"
+                            class="form-control"
+                            id="InputUsername"
+                          />
+                        </div>
+                        <!-- End InputEmail -->
+                        <div class="mb-3" id="form-group">
+                          <label for="InputPassword" class="form-label"
+                            >Password<sup>*</sup></label
+                          >
+                          <a href="{% url 'reset_password' %}"
+                            ><span>Forgot Password?</span></a
+                          >
+                          <input
+                            type="password"
+                            class="form-control"
+                            id="InputPassword"
+                            name="password"
+                            value="enter your password"
+                          />
+                          <span
+                            toggle="#InputPassword"
+                            class="fa fa-fw fa-eye-slash field-icon toggle-password"
+                          ></span>
+                        </div>
+                        <!-- End InputPassword -->
+
+                        <center>
+                          <input
+                            id="btn_style"
+                            type="submit"
+                            class="button"
+                            value="Login to account"
+                          />
+                          <!-- End submit-link -->
+                        </center>
+                      </form>
+                      <!-- End form-->
+                    </div>
+                    <!-- End login-form-container-->
+
+                    <!----------------------------- End Create Account Form --------------------->
+                  </div>
+                  <!-- End col-->
+
+                  <div class="col-md-5 align-self-center">
+                    <img
+                      id="login-img"
+                      src="{% static '/images/login.svg' %}"
+                      class="img-fluid"
+                      alt="login-img"
+                    />
+                  </div>
+                  <!-- End col -->
+                </div>
+                <!-- End row-->
+              </div>
+              <!-- End account-form-container -->
+            </div>
+            <!-- End hero-intro-->
+          </div>
+          <!-- End container-fluid -->
+        </div>
+        <!-- End hero -->
+
+        <!--=========================================== Footer--layout ===============================-->
+        <footer>
+          <div class="container-fluid">
+            <div class="footer-intro">
+              <p>&copy;2022 Ltd. All Rights Reserved.</p>
+            </div>
+            <!-- End footer-intro -->
+          </div>
+        </footer>
+        <!-- End footer -->
+
+        <!--  -->
+        <!--=========================================== page--layout ===============================-->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/login.js' %}"></script>
+  </body>
+</html>

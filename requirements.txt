@@ -1,0 +1,9 @@
+humanize==4.3.0
+Pillow==8.3.2
+psycopg2-binary==2.9.5
+Django==4.0
+django-cors-headers==3.13.0
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.2.2
+PyJWT==2.3.0
+whitenoise==6.2.0

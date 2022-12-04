@@ -1,0 +1,427 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background: var(--main-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+.line {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+.line div {
+  visibility: hidden;
+}
+
+/* Fonts */
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: "eina01-bold";
+  src: url("../fonts/eina01-bold.woff2");
+}
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: "NeueHaasUnicaW1G-Light";
+  src: url("../fonts/NeueHaasUnicaW1G-Light.woff2");
+}
+.page-content {
+  --main-color: #fff;
+  --secondary-color: #bc302f;
+  --text-color: #333;
+  --accent-color: #a1a1a1;
+  --header-font: "eina01-bold";
+  --text-font: "NeueHaasUnicaW1G-Light";
+}
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+a:hover {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+/*change color of text highlight*/
+::-moz-selection {
+  color: var(--main-color);
+  background: var(--text-color);
+}
+
+::selection {
+  color: var(--main-color);
+  background: var(--text-color);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-color);
+  border-radius: 6px;
+}
+
+#alert_message {
+  width: 50%;
+  text-align: center;
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 1.7vh;
+  margin-top: 2%;
+  position: absolute;
+  top: 5%;
+  left: 45%;
+}
+.alert-error {
+  background: #bc302f !important;
+  color: var(--main-color) !important;
+}
+
+/****************************************** Button.Style **************************************/
+.button {
+  --background: #333;
+  --text: #fff;
+  --font-size: 16px;
+  --duration: 0.44s;
+  --move-hover: -4px;
+  --shadow: 0 2px 8px -1px rgb(105, 105, 105, 0.5);
+  --shadow-hover: 0 4px 20px -2px rgb(105, 105, 105, 0.5);
+  --font-shadow: var(--font-size);
+  padding: 16px 32px;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: var(--font-size);
+  border-radius: 24px;
+  display: block;
+  outline: none;
+  text-decoration: none;
+  font-size: 2.2vh;
+  letter-spacing: 0.5px;
+  background: var(--background);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  font-family: var(--text-font);
+  transform: translateY(var(--y)) translateZ(0);
+  transition: transform var(--duration) ease, box-shadow var(--duration) ease;
+  width: 60%;
+}
+.button div {
+  display: flex;
+  overflow: hidden;
+  text-shadow: 0 var(--font-shadow) 0 var(--text);
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+}
+.button div span {
+  display: block;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  font-style: normal;
+  transition: transform var(--duration) ease;
+  transform: translateY(var(--m)) translateZ(0);
+}
+.button div span:nth-child(1) {
+  transition-delay: 0.05s;
+}
+.button div span:nth-child(2) {
+  transition-delay: 0.1s;
+}
+.button div span:nth-child(3) {
+  transition-delay: 0.15s;
+}
+.button div span:nth-child(4) {
+  transition-delay: 0.2s;
+}
+.button div span:nth-child(5) {
+  transition-delay: 0.25s;
+}
+.button div span:nth-child(6) {
+  transition-delay: 0.3s;
+}
+.button div span:nth-child(7) {
+  transition-delay: 0.35s;
+}
+.button div span:nth-child(8) {
+  transition-delay: 0.4s;
+}
+.button div span:nth-child(9) {
+  transition-delay: 0.45s;
+}
+.button div span:nth-child(10) {
+  transition-delay: 0.5s;
+}
+.button div span:nth-child(11) {
+  transition-delay: 0.55s;
+}
+.buttonn:hover {
+  --y: var(--move-hover);
+  --shadow: var(--shadow-hover);
+}
+.buttonn:hover span {
+  --m: calc(var(--font-size) * -1);
+}
+.button.reverse {
+  --font-shadow: calc(var(--font-size) * -1);
+}
+.button.reverse:hover span {
+  --m: calc(var(--font-size));
+}
+
+/************************ Hero-Section *****************************/
+#hero {
+  margin-top: 15%;
+}
+.hero-intro {
+  margin: 3%;
+}
+#return-link_img {
+  width: 20%;
+}
+.hero-intro h6 {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 1.7vh;
+  margin-top: 2%;
+}
+.wrapper {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+}
+.wrapper .line {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.wrapper .line span {
+  position: absolute;
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--header-font);
+  font-size: 4.2vh;
+  line-height: 3.1rem;
+}
+.hero-intro h3 {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2.1vh;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+.hero-intro h3 a {
+  font-weight: bold;
+  font-family: var(--header-font);
+  color: var(--text-color);
+}
+.hero-intro p {
+  color: var(--secondary-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2.2vh;
+}
+/*********** hero form **********/
+.hero-intro form {
+  margin-top: 10%;
+}
+.hero-intro form label {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2vh;
+}
+.hero-intro form label sup {
+  color: #e21414;
+}
+.hero-intro form input {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2vh;
+  border: 1px solid var(--text-color);
+}
+.hero-intro form input:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+  border: 1px solid var(--accent-color);
+  background-color: transparent !important;
+}
+.hero-intro .button {
+  font-size: 2vh;
+  color: var(--main-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+}
+#btn_style {
+  color: var(--main-color);
+  margin-top: -1%;
+}
+
+/************************ Footer-Section *****************************/
+footer {
+  margin-top: 14%;
+}
+.footer-intro {
+  border-top: 1px solid var(--accent-color);
+}
+footer p {
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  color: var(--text-color);
+  font-size: 1.9vh;
+  text-align: center;
+  padding-top: 5%;
+  padding-bottom: 1%;
+}
+/********************** Extra small devices (portrait phones, less than 576px) ****************************/
+@media (max-width: 575.98px) {
+  #hello_img {
+    display: none;
+  }
+}
+/************************ Small devices (landscape phones, 576px and up) *****************************/
+@media (min-width: 576px) and (max-width: 767.98px) {
+  body {
+    display: none;
+  }
+}
+/***************************** Medium devices (tablets, 768px and up) ********************************/
+@media (min-width: 768px) and (max-width: 991.98px) {
+  body {
+    display: none;
+  }
+}
+/********************************** Large devices (desktops, 992px and up) *********************************/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  body {
+    display: none;
+  }
+}
+/************************ Extra large devices (large desktops, 1200px and up) ********************************/
+@media (min-width: 1200px) {
+  #alert_message {
+    margin-bottom: 2%;
+    font-size: 1.8vh;
+    width: 20%;
+    margin-top: -2%;
+    top: 5%;
+    left: 75%;
+  }
+
+  /****** Hero-Section ******/
+  #hero {
+    margin-top: 2%;
+  }
+  .hero-intro {
+    margin: 3%;
+  }
+  #return_link {
+    margin-bottom: 10%;
+  }
+  #return-link_img {
+    width: 5%;
+  }
+  .hero-intro h6 {
+    font-size: 1.7vh;
+    margin-top: 1%;
+  }
+  #account-form-container {
+    margin-left: 15%;
+    margin-top: -2%;
+  }
+  .wrapper {
+    margin-top: 0%;
+  }
+  .wrapper .line {
+    width: 100%;
+    height: 77px;
+    position: relative;
+    overflow: hidden;
+    margin-top: -2%;
+  }
+  .wrapper .line span {
+    position: absolute;
+    font-size: 7vh;
+    line-height: 5.6rem;
+  }
+  .hero-intro h3 {
+    font-size: 2vh;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+  .hero-intro p {
+    font-size: 2.2vh;
+  }
+
+  /****** Hero-Form-Section ******/
+  .hero-intro form {
+    margin-top: 5%;
+  }
+  .hero-intro form label {
+    font-size: 2vh;
+  }
+  .hero-intro form input {
+    font-size: 2vh;
+  }
+  #create-account-img {
+    width: 75%;
+    margin-left: 10%;
+  }
+  #btn_style {
+    margin-top: -1px;
+  }
+  .hero-intro .button {
+    padding: 14px 12px;
+    font-size: 2vh;
+    width: 30%;
+  }
+  #hello_img {
+    width: 80%;
+    margin-left: 10%;
+  }
+
+  /****** footer_section ******/
+  footer {
+    margin-top: 4%;
+  }
+  footer p {
+    font-size: 1.8vh;
+    padding-top: 2%;
+    padding-bottom: 0%;
+  }
+}
+
+/************************ Extra large devices (extra large desktops, 1900px and up) ********************************/
+@media (min-width: 2000px) {
+  body {
+    display: none;
+  }
+}

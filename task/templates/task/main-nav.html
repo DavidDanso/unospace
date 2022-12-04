@@ -1,0 +1,158 @@
+{% load static %}
+<!--======================== Nav-Section ================================-->
+<nav class="navbar navbar-expand-lg fixed-top menu" id="mainNav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img
+        id="logo"
+        src="{% static 'images/LOGO.png' %}"
+        class="img-fluid"
+        alt="logo image"
+      />
+    </a>
+    <!-- mobile NavBar -->
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasWithBackdrop"
+      aria-controls="offcanvasWithBackdrop"
+    >
+      <span></span><span></span></button
+    ><!-- End navbar-toggler -->
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasWithBackdrop"
+      aria-labelledby="offcanvasWithBackdropLabel"
+      id="mob_nav"
+    >
+      <div class="offcanvas-header">
+        <img
+          id="close__canvas"
+          src="{% static 'images/close.svg' %}"
+          class="img-fluid"
+          alt="logo"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        />
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <img
+              id="profile_img"
+              src="{% static 'images/default-avatar.png' %}"
+              class="img-fluid rounded-circle"
+              alt="profile_img"
+            />
+            <p>@the_desiinger</p>
+          </li>
+
+          <div id="subnav_link">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'completed-task' %}"
+                >[ Completed ]✔️</a
+              >
+            </li>
+
+            <li class="nav-item" id="view_profile">
+              <a class="nav-link" href="{% url 'profile' %}">
+                View Profile
+                <span style="float: right">👤</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">
+                <img
+                  id="logout_img"
+                  src="{% static 'images/logout.png' %}"
+                  class="img-fluid"
+                  alt="logout_img"
+                />
+                Logout
+              </a>
+            </li>
+          </div>
+          <!-- End subnav_link-->
+        </ul>
+        <!-- End navbar-nav -->
+      </div>
+      <!-- End offcanvas-body -->
+    </div>
+    <!-- End mobile NavBar -->
+
+    <!-- ***************************** Desktop Nav *********************************** -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"></li>
+        <!-- End about-->
+      </ul>
+
+      <ul class="navbar-nav mb-2 mb-lg-0" id="rightNav">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img
+              id="profile_img"
+              src="{{ request.user.profile.imageURL }}"
+              class="img-fluid rounded-circle"
+              alt="logo"
+            />
+            <small>Safely & Easily...</small>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <h6>{{request.user.profile.name}}</h6>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a
+                id="dropdown_a"
+                class="dropdown-item"
+                href="{% url 'completed-task' %}"
+              >
+                Completed Task
+                <span style="float: right">✔️</span>
+              </a>
+            </li>
+            <li>
+              <a
+                id="dropdown_a"
+                class="dropdown-item"
+                href="{% url 'profile' %}"
+              >
+                View Profile
+                <span style="float: right">👤</span>
+              </a>
+            </li>
+            <li>
+              <a
+                id="dropdown_a"
+                class="dropdown-item"
+                href="{% url 'logout' %}"
+              >
+                Logout
+                <span style="float: right">👋🏽</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- End resources-->
+      </ul>
+      <!-- End rightNav -->
+    </div>
+    <!-- End Desktop Nav collapse -->
+  </div>
+  <!-- End container-fluid -->
+</nav>
+<!-- End Nav-Section -->

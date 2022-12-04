@@ -1,0 +1,284 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="More than a Doc..." />
+    <meta
+      name="keywords"
+      content="Task, ToDo list, list, todo, django todo, To-Do List"
+    />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" />
+    <title>Cpmpleted Task Page</title>
+
+    <!-- Preload CSS -->
+    <link
+      rel="preload"
+      as="style"
+      href="{% static '/css/completed-task.css' %}"
+    />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/completed-task.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!-- Show error messages -->
+        {% if messages %}
+        <!--  -->
+        {% for message in messages %}
+        <div
+          id="alert_message"
+          class="alert alert-{{message.tags}} alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>{{message}}!</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        {% endfor %}
+        <!--  -->
+        {% endif %}
+        <!--  -->
+
+        {% if completed_task %}
+        <!--=========================================== Completed-Hero-Task ===============================-->
+        <div id="hero">
+          <div class="container-fluid">
+            <div class="hero-intro">
+              <div id="links">
+                <a href="{% url 'tasks' %}">
+                  <img
+                    id="return_link"
+                    src="{% static 'images/return_link-img.png' %}"
+                    class="img-fluid"
+                    alt="return_link"
+                  />
+                </a>
+
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                >
+                  <h6 style="float: right">
+                    Delete all Task
+                    <img
+                      id="delete_icon"
+                      src="{% static 'images/delete_icon.svg' %}"
+                      class="img-fluid"
+                      alt="delete_icon"
+                    />
+                  </h6>
+                </a>
+              </div>
+              <!-- End links-->
+
+              <!------------------------- Completed List card ---------------------->
+              <center>
+                <div class="card">
+                  <div class="card-body">
+                    <h1>Completed Task ({{no_completed_task}})</h1>
+                    <img
+                      id="line_img"
+                      src="{% static 'images/line.PNG' %}"
+                      class="img-fluid"
+                      alt="line_img"
+                    />
+
+                    {% for task in completed_task %}
+                    <!------------------------- completed Lists ---------------------->
+                    <div class="card shadow p-3 rounded" id="completedList">
+                      <div class="todoList-body">
+                        <h5 class="todoList-title">{{task.title}}</h5>
+                        <p>{{task.task_description|truncatechars:200}}</p>
+                        <h3>
+                          <img
+                            id="avatar"
+                            src="{{ request.user.profile.profile_image.url }}"
+                            class="img-fluid rounded-circle"
+                            alt="avatar"
+                          />
+                          <span>Date Completed: {{task.due_date}}</span>
+                        </h3>
+                      </div>
+                      <!-- End card-body-->
+                    </div>
+                    <!-- End a completedList-->
+                    <!------------------------- End completed Lists ---------------------->
+                    {% endfor %}
+                  </div>
+                  <!-- End card-body-->
+                </div>
+                <!-- End card -->
+              </center>
+              <!------------------------- End Completed List card ---------------------->
+            </div>
+            <!-- End hero-intro-->
+          </div>
+          <!-- End container-fluid -->
+        </div>
+        <!-- End hero -->
+
+        {% else %}
+        <!--=========================================== Not_Completed-Hero-Task ===============================-->
+        <div id="not_completed">
+          <div class="container-fluid">
+            <div class="not_completed-intro">
+              <a href="{% url 'tasks' %}">
+                <img
+                  id="return_link"
+                  src="{% static 'images/return_link-img.png' %}"
+                  class="img-fluid"
+                  alt="return_link"
+                />
+              </a>
+
+              <img
+                id="empty_img"
+                src="{% static 'images/empyt.png' %}"
+                class="img-fluid d-flex mx-auto"
+                alt="empty_img"
+              />
+              <!--  -->
+            </div>
+            <!-- End not_completed-intro-->
+          </div>
+          <!-- End container-fluid -->
+        </div>
+        <!-- End not_completed -->
+        <!--  -->
+        {% endif %}
+
+        <!--=========================================== delete-modal ===============================-->
+        <div id="delete_modal">
+          <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">
+                    Delete Task
+                  </h5>
+                  <div id="close_modal">
+                    <img
+                      id="close_svg"
+                      src="{% static 'images/red_close.svg' %}"
+                      class="img-fluid"
+                      alt="close_svg"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    />
+                  </div>
+                  <!-- End close_modal -->
+                </div>
+                <!-- End modal-header -->
+                <div class="modal-body">
+                  <h6>Are you sure you want to delete Task(s)?</h6>
+                  <p>Note: This action can't be undone.</p>
+                  <img
+                    id="delete-modal_img"
+                    src="{% static 'images/sad_boy.png' %}"
+                    class="img-fluid d-flex mx-auto"
+                    alt="delete-modal_img"
+                  />
+                  <!--  -->
+                  <form action="" method="POST">
+                    {% csrf_token %}
+                    <center>
+                      <button
+                        type="button"
+                        class="btn"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span>Cancel, keep this task</span>
+                      </button>
+
+                      <input
+                        type="submit"
+                        class="button"
+                        id="delete_btn"
+                        value="Delete Task"
+                      />
+                    </center>
+                    <!--  -->
+                  </form>
+                </div>
+                <!-- End modal-body -->
+              </div>
+              <!-- End modal-content -->
+            </div>
+            <!-- End modal-dialog -->
+          </div>
+          <!-- End modal -->
+        </div>
+        <!-- End delete-modal -->
+        <!--=========================================== page--layout ===============================-->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/completed-task.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="More than a Doc..." />
+    <meta
+      name="keywords"
+      content="Task, ToDo list, list, todo, django todo, To-Do List"
+    />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" />
+    <title>Create-Account Page</title>
+
+    <!-- Preload CSS -->
+    <link
+      rel="preload"
+      as="style"
+      href="{% static '/css/create-account.css' %}"
+    />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/create-account.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!-- Show error messages -->
+        {% if messages %}
+        <!--  -->
+        {% for message in messages %}
+        <div
+          id="alert_message"
+          class="alert alert-{{message.tags}} alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>{{message}}!</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        {% endfor %}
+        <!--  -->
+        {% endif %}
+        <!--  -->
+
+        <!--=========================================== Hero-Section ===============================-->
+        <div id="hero">
+          <div class="container-fluid">
+            <div class="hero-intro">
+              <div id="return_link">
+                <a href="javascript:history.back()">
+                  <img
+                    id="return-link_img"
+                    src="{% static '/images/return_link-img.png' %}"
+                    class="img-fluid"
+                    alt="return-link_img"
+                  />
+                  <h6>return back</h6>
+                </a>
+              </div>
+              <!-- End return_link -->
+
+              <div id="account-form-container">
+                <div class="row">
+                  <div class="col-md-7">
+                    <div class="wrapper">
+                      <div class="line">
+                        <span>Create an account</span>
+                      </div>
+                      <!-- End line-->
+                    </div>
+                    <!-- End wrapper -->
+                    <h3>
+                      Already have an account? Login
+                      <a href="{% url 'login'%}">here</a>
+                    </h3>
+                    <p class="animate-this">All fields are Required: *</p>
+
+                    <!----------------------------- Create Account Form --------------------->
+                    <form class="row g-3" method="POST" action="">
+                      {% csrf_token %}
+                      <!--  -->
+                      <div class="col-md-6">
+                        <label for="inputFirstName" class="form-label"
+                          >Full Name<sup>*</sup></label
+                        >
+                        {{form.first_name}}
+                      </div>
+                      <!-- End inputFirstName -->
+                      <div class="col-md-6">
+                        <label for="inputUsername" class="form-label"
+                          >Username<sup>*</sup></label
+                        >
+                        {{form.username}}
+                      </div>
+                      <!-- End inputUsername -->
+                      <div class="col-12">
+                        <label for="inputEmail" class="form-label"
+                          >Email<sup>*</sup></label
+                        >
+                        {{form.email}}
+                      </div>
+                      <!-- End inputEmail -->
+                      <div class="col-md-6">
+                        <label for="inputPassword" class="form-label"
+                          >Password<sup>*</sup></label
+                        >
+                        {{form.password1}}
+                      </div>
+                      <!-- End inputPassword -->
+                      <div class="col-md-6">
+                        <label for="inputPassword" class="form-label"
+                          >Confirm Password<sup>*</sup></label
+                        >
+                        {{form.password2}}
+                      </div>
+                      <!-- End inputPassword -->
+                      <center>
+                        <input
+                          id="btn_style"
+                          type="submit"
+                          class="button"
+                          value="Create an Account"
+                        />
+                        <!-- End submit-link -->
+                      </center>
+                    </form>
+                    <!----------------------------- End Create Account Form --------------------->
+                  </div>
+                  <!-- End col-->
+
+                  <div class="col-md-5 align-self-center">
+                    <img
+                      id="hello_img"
+                      src="{% static '/images/connect.svg' %}"
+                      class="img-fluid"
+                      alt="hello_img"
+                    />
+                  </div>
+                  <!-- End col -->
+                </div>
+                <!-- End row-->
+              </div>
+              <!-- End account-form-container -->
+            </div>
+            <!-- End hero-intro-->
+          </div>
+          <!-- End container-fluid -->
+        </div>
+        <!-- End hero -->
+
+        <!--=========================================== Footer--layout ===============================-->
+        <footer>
+          <div class="container-fluid">
+            <div class="footer-intro">
+              <p>&copy;2022 Ltd. All Rights Reserved.</p>
+            </div>
+            <!-- End footer-intro -->
+          </div>
+        </footer>
+        <!-- End footer -->
+
+        <!--  -->
+        <!--=========================================== page--layout ===============================-->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/create-account.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,532 @@
+{% load static %}
+<!--  -->
+{% load humanize %}
+<!--  -->
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="More than a Doc..." />
+    <meta
+      name="keywords"
+      content="Task, ToDo list, list, todo, django todo, To-Do List"
+    />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" />
+    <title>Task Page</title>
+
+    <!-- Preload CSS -->
+    <link rel="preload" as="style" href="{% static '/css/task.css' %}" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/task.css' %}" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!--======================== Nav-Section ================================-->
+      {% include 'task/main-nav.html' %}
+      <!-- End Nav-Section -->
+
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!-- Show error messages -->
+        {% if messages %}
+        <!--  -->
+        {% for message in messages %}
+        <div
+          id="alert_message"
+          class="alert alert-{{message.tags}} alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>{{message}}!</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+        {% endfor %}
+        <!--  -->
+        {% endif %}
+        <!--  -->
+
+        {% if tasks %}
+        <!--=========================================== Show_task ===============================-->
+        <div id="show_task">
+          <!--=========================================== Hero-Text ===============================-->
+          <div id="hero">
+            <div class="container-fluid">
+              <div class="hero-intro">
+                <h1>Welcome {{request.user.profile.username}}!</h1>
+                <p>
+                  It's {{weekday}}, {{day}} {{month}}. You've
+                  <span class="text-danger">[{{task_num}}]</span>
+                  task(s) coming up in the next days.
+                </p>
+
+                <center>
+                  <div id="search">
+                    <input
+                      id="input"
+                      class="live-search-box"
+                      placeholder="search by task title, month, day or year..."
+                    />
+                    <button id="button">
+                      <ion-icon name="search-circle"></ion-icon>
+                    </button>
+                  </div>
+                </center>
+                <!-- End center -->
+              </div>
+              <!-- End hero-intro-->
+            </div>
+            <!-- End container-fluid -->
+          </div>
+          <!-- End hero -->
+
+          <!--===========================================   ToDo-Section ===============================-->
+          <div id="todo" class="live-search-list">
+            <div class="container-fluid">
+              <div class="todo-intro">
+                <div id="add_task">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                  >
+                    <h2>
+                      <img
+                        id="tab_img"
+                        src="{% static 'images/add_icon.svg' %}"
+                        class="img-fluid"
+                        alt="tab_img"
+                      />
+                      Add new Task
+                    </h2>
+                  </a>
+                </div>
+                <!-- End add_task -->
+
+                <!------------------------- Main Todo List card ---------------------->
+                <center>
+                  <div class="card" id="main-card">
+                    <div class="card-body">
+                      <h1>Task List({{task_num}})</h1>
+                      <img
+                        id="line_img"
+                        src="{% static 'images/line.PNG' %}"
+                        class="img-fluid"
+                        alt="line_img"
+                      />
+
+                      <!------------------------- Start of Todo Lists ---------------------->
+                      {% for task in tasks %}
+                      <a
+                        href="{% url 'update-task' task.id %}"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight{{task.id}}"
+                        aria-controls="offcanvasRight{{task.id}}"
+                      >
+                        <div class="card shadow p-3 rounded" id="todoList">
+                          <div class="todoList-body">
+                            <h5 class="todoList-title">
+                              {{task.title|truncatechars:30}}
+                              <span>Due Date: {{task.due_date}}</span>
+                            </h5>
+                            <p class="todoList-text">
+                              {{task.task_description|truncatechars:170}}
+                            </p>
+                            <h6 class="todoList-tag">
+                              <span id="date__">
+                                {{task.updated_time_stamp|naturaltime}}
+                                <!--  -->
+                                {% if task.number_of_notes > 0 %}
+                                <img
+                                  id="chat_icon"
+                                  src="{% static 'images/label-icons/comment.svg' %}"
+                                  class="img-fluid"
+                                  alt="chat_icon"
+                                />
+                                [{{task.number_of_notes}}]
+                                <!--  -->
+                                {% endif %}
+                              </span>
+                              <span id="status"
+                                ><mark>Status:</mark> {{task.status}}</span
+                              >
+                            </h6>
+                          </div>
+                          <!-- End card-body-->
+                        </div>
+                        <!-- End todoList --> </a
+                      ><!-- End a todoList-->
+                      {% endfor %}
+                      <!------------------------- End of Todo Lists ---------------------->
+                    </div>
+                    <!-- End card-body-->
+                  </div>
+                  <!-- End card -->
+                </center>
+                <!------------------------- End Main Todo List card ---------------------->
+              </div>
+              <!-- End todo-intro -->
+            </div>
+            <!-- End container-fluid -->
+          </div>
+          <!-- End todo -->
+        </div>
+        <!-- End show_task -->
+
+        {% else %}
+        <!--=========================================== no_task-Hero ===============================-->
+        <div id="no_task">
+          <div class="container-fluid">
+            <div class="no_task-intro">
+              <img
+                id="empty_img"
+                src="{% static 'images/empty_page.png' %}"
+                class="img-fluid d-flex mx-auto"
+                alt="empty_img"
+              />
+              <!--  -->
+              <div id="add_task">
+                <center>
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                  >
+                    <h2>
+                      <img
+                        id="tab_img"
+                        src="{% static 'images/add_icon.svg' %}"
+                        class="img-fluid"
+                        alt="tab_img"
+                      />
+                      Create first Task
+                    </h2>
+                  </a>
+                </center>
+              </div>
+              <!-- End add_task -->
+            </div>
+            <!-- End no_task-intro-->
+          </div>
+          <!-- End container-fluid -->
+        </div>
+        <!-- End no_task -->
+        {% endif %}
+
+        <!--=========================================== Modal--layout ===============================-->
+        <div id="todo_modal">
+          <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">
+                    Create Task
+                  </h5>
+                  <div id="close_modal">
+                    <img
+                      id="close_svg"
+                      src="{% static 'images/red_close.svg' %}"
+                      class="img-fluid"
+                      alt="close_svg"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    />
+                  </div>
+                  <!-- End close_modal -->
+                </div>
+                <!-- End modal-header -->
+                <div class="modal-body">
+                  <form action="" method="POST" class="row g-3">
+                    {% csrf_token %}
+                    <div class="col-12">
+                      <label for="inputTitle" class="form-label">Title</label>
+                      {{form.title}}
+                      <small>🫥enter task title here</small>
+                    </div>
+                    <!-- End inputTitle-->
+
+                    <div class="col-md-4">
+                      <label for="inputTag" class="form-label">Tag</label>
+                      {{form.tag}}
+                      <small>🫥you can add emoji's to your tags</small>
+                    </div>
+                    <!-- End inputTag-->
+
+                    <div class="col-md-4">
+                      <label for="inputStatus" class="form-label">Status</label>
+                      {{form.status}}
+                      <small>🫥choose task status</small>
+                    </div>
+                    <!-- End inputStatus-->
+
+                    <div class="col-md-4">
+                      <label for="inputDueDate" class="form-label"
+                        >Due Date</label
+                      >
+                      {{form.due_date}}
+                      <small>🫥date format: day/month/year</small>
+                    </div>
+                    <!-- End inputDueDate-->
+
+                    <center>
+                      <hr id="form_divider" />
+                    </center>
+
+                    <div class="col-12">
+                      <label for="inputTodoDec" class="form-label"
+                        >Task Description</label
+                      >
+                      {{form.task_description}}
+                      <small>🫥enter a description for your task</small>
+                      <!-- End textarea-->
+                    </div>
+                    <!-- End inputTodoDec-->
+
+                    <center>
+                      <input
+                        id="btn_style"
+                        type="submit"
+                        class="button"
+                        value="Create Task"
+                      />
+                    </center>
+                    <!--  -->
+                  </form>
+                  <!-- End form-->
+                </div>
+                <!-- End modal-body -->
+              </div>
+              <!-- End modal-content -->
+            </div>
+            <!-- End modal-dialog -->
+          </div>
+          <!-- End modal -->
+        </div>
+        <!-- End todo-modal -->
+        <!--  -->
+
+        <!--=========================================== Dispaly-Task_Content--layout ===============================-->
+        <div id="task_content">
+          {% for task in tasks %}
+          <div
+            class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="offcanvasRight{{task.id}}"
+            aria-labelledby="offcanvasRightLabel"
+          >
+            <div class="offcanvas-header">
+              <img
+                id="close__canvas"
+                src="{% static 'images/close.svg' %}"
+                class="img-fluid"
+                alt="logo"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              />
+            </div>
+            <!-- End offcanvas-header -->
+            <div class="offcanvas-body">
+              <img
+                id="cover-photo"
+                src="{% static 'images/cover-photo.png' %}"
+                class="img-fluid"
+                alt=""
+              />
+              <h1>{{task.title}}</h1>
+              <a href="{% url 'update-task' task.id %}">
+                <span>
+                  Edit Task
+                  <img
+                    id="edit_icon"
+                    src="{% static 'images/pen.svg' %}"
+                    class="img-fluid"
+                    alt="edit_icon"
+                  />
+                </span>
+              </a>
+
+              <div class="row" id="task_date">
+                <div class="col-6 col-md-3">
+                  <h5>
+                    <img
+                      id="task_icons"
+                      src="{% static 'images/clock.svg' %}"
+                      alt="task_icons"
+                    />Date Created:
+                  </h5>
+                </div>
+                <!-- End col-->
+                <div class="col-6 col-md-3">
+                  <h5>{{task.created_time_stamp|date}}</h5>
+                </div>
+                <!-- End col-->
+              </div>
+              <!-- End task_date-->
+
+              <div class="row" id="task_status">
+                <div class="col-6 col-md-3">
+                  <h5>
+                    <img
+                      id="task_icons"
+                      src="{% static 'images/status.svg' %}"
+                      alt="task_icons"
+                    />Status:
+                  </h5>
+                </div>
+                <!-- End col-->
+                <div class="col-6 col-md-3">
+                  <h5>{{task.status}}</h5>
+                </div>
+                <!-- End col-->
+              </div>
+              <!-- End task_status-->
+
+              <div class="row" id="task_tag">
+                <div class="col-6 col-md-3">
+                  <h5>
+                    <img
+                      id="task_icons"
+                      src="{% static 'images/tag.svg' %}"
+                      alt="task_icons"
+                    />Tag:
+                  </h5>
+                </div>
+                <!-- End col-->
+                <div class="col-6 col-md-3">
+                  <h5>
+                    <span class="badge rounded-pill bg-secondary"
+                      >{{task.tag}}</span
+                    >
+                  </h5>
+                </div>
+                <!-- End col-->
+              </div>
+              <!-- End task_tag-->
+
+              <div class="row" id="task_comment">
+                {% if task.number_of_notes > 0%}
+                <div class="col-6 col-md-3">
+                  <h5>
+                    <img
+                      id="task_icons"
+                      src="{% static 'images/comment.svg' %}"
+                      alt="task_icons"
+                    />Comment:
+                  </h5>
+                </div>
+                <!-- End col-->
+                <div class="col-6 col-md-3">
+                  <h5>[{{task.number_of_notes}}]</h5>
+                </div>
+                <!-- End col-->
+                {% endif %}
+              </div>
+              <!-- End task_comment-->
+
+              <div class="row" id="last__updated">
+                <div class="col-6 col-md-3">
+                  <h5>
+                    <img
+                      id="task_icons_"
+                      src="{% static 'images/pending.png' %}"
+                      alt="task_icons"
+                    />Last Updated:
+                  </h5>
+                </div>
+                <!-- End col-->
+                <div class="col-6 col-md-3">
+                  <h5>{{task.updated_time_stamp|naturaltime}}</h5>
+                </div>
+                <!-- End col-->
+              </div>
+              <!-- End last__updated-->
+
+              <hr id="section_divider" />
+
+              <h2>Task Description</h2>
+              <p>{{task.task_description}}</p>
+            </div>
+            <!-- End offcanvas-body -->
+          </div>
+          <!-- End offcanvas -->
+          {% endfor %}
+        </div>
+        <!-- End task_content -->
+        <!--=========================================== page--layout ===============================-->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/task.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="More than a Doc..." />
+    <meta
+      name="keywords"
+      content="Task, ToDo list, list, todo, django todo, To-Do List"
+    />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" />
+    <title>Profile Page</title>
+
+    <!-- Preload CSS -->
+    <link rel="preload" as="style" href="{% static '/css/profile.css' %}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/profile.css' %}" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!--=========================================== Hero-Text ===============================-->
+        <div id="hero">
+          <div class="container-fluid">
+            <div class="hero-intro">
+              <h6 id="hero_header">
+                <a href="javascript:history.back()">
+                  <img
+                    id="return_link"
+                    src="{% static 'images/return_link-img.png' %}"
+                    class="img-fluid"
+                    alt="return_link"
+                  />
+                </a>
+                <span>Joined {{request.user.date_joined|date}}</span>
+              </h6>
+              <!-- End hero_header-->
+
+              <h1>Profile Settings</h1>
+              <p>@{{user.username}} - {{user.email}}</p>
+            </div>
+            <!-- End hero-intro-->
+          </div>
+          <!-- End container-fluid -->
+        </div>
+        <!-- End hero -->
+
+        <!--=========================================== profile_settings ===============================-->
+        <div id="profile_settings">
+          <div class="container-fluid">
+            <div class="profile_setting-intro">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <img
+                        id="avatar_img"
+                        src="{{request.user.profile.imageURL}}"
+                        class="img-fluid rounded-circle d-flex mx-auto"
+                        alt="avatar_img"
+                      />
+
+                      <h2 id="username">@{{user.username}}</h2>
+                      <h6 id="email">{{user.email}}</h6>
+
+                      <hr id="settings_line" />
+
+                      <h6>Account Owner</h6>
+                      <h5 id="full_name">{{user.name}}</h5>
+                      <img
+                        id="approval_img"
+                        src="{% static 'images/approval-symbol-in-badge.png' %}"
+                        class="img-fluid rounded-circle d-flex mx-auto"
+                        alt="approval_img"
+                      />
+                    </div>
+                    <!-- End card-->
+                  </div>
+                  <!-- End card-->
+                </div>
+                <!-- End col-->
+
+                <div class="col-md-8 align-self-center">
+                  <form
+                    class="row g-3"
+                    method="POST"
+                    action="{% url 'profile' %}"
+                    enctype="multipart/form-data"
+                  >
+                    {% csrf_token %}
+                    <div class="col-md-6">
+                      <label for="inputFullName" class="form-label"
+                        >Full Name</label
+                      >
+                      {{form.name}}
+                    </div>
+                    <!-- End inputFullName-->
+
+                    <div class="col-md-6">
+                      <label for="inputUsername" class="form-label"
+                        >Username</label
+                      >
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1"
+                          >@</span
+                        >
+                        {{form.username}}
+                      </div>
+                      <!-- End input-group-->
+                    </div>
+                    <!-- End inputUsername-->
+
+                    <div class="col-md-6">
+                      <label for="inputEmail" class="form-label"
+                        >Email Address</label
+                      >
+                      {{form.email}}
+                    </div>
+                    <!-- End inputEmail-->
+
+                    <div class="col-md-6" id="user_img">
+                      <label for="formFile" class="form-label"
+                        >Update Photo</label
+                      >
+                      {{form.profile_image}}
+                    </div>
+                    <!-- End formFile-->
+
+                    <center>
+                      <input
+                        id="btn_style"
+                        type="submit"
+                        class="button"
+                        value="Update Profile"
+                      />
+                    </center>
+                    <!--  -->
+                  </form>
+                  <!-- End form-->
+                </div>
+                <!-- End col-->
+              </div>
+              <!-- End row-->
+            </div>
+            <!-- End profile_settings-intro -->
+          </div>
+          <!-- End container-fluid -->
+        </div>
+        <!-- End profile_settings -->
+        <!--  -->
+        <!--=========================================== page--layout ===============================-->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/profile.js' %}"></script>
+  </body>
+</html>

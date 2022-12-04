@@ -1,0 +1,399 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background: var(--main-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+.line {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+.line div {
+  visibility: hidden;
+}
+
+/* Fonts */
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: "eina01-bold";
+  src: url("../fonts/eina01-bold.woff2");
+}
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: "NeueHaasUnicaW1G-Light";
+  src: url("../fonts/NeueHaasUnicaW1G-Light.woff2");
+}
+.page-content {
+  --main-color: #fff;
+  --secondary-color: #9b700a;
+  --text-color: #333;
+  --accent-color: #a1a1a1;
+  --header-font: "eina01-bold";
+  --text-font: "NeueHaasUnicaW1G-Light";
+}
+a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+a:hover {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+/*change color of text highlight*/
+::-moz-selection {
+  color: var(--main-color);
+  background: var(--text-color);
+}
+
+::selection {
+  color: var(--main-color);
+  background: var(--text-color);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--text-color);
+  border-radius: 6px;
+}
+
+/****************************************** Button.Style **************************************/
+.button {
+  --background: #333;
+  --text: #fff;
+  --font-size: 16px;
+  --duration: 0.44s;
+  --move-hover: -4px;
+  --shadow: 0 2px 8px -1px rgb(105, 105, 105, 0.5);
+  --shadow-hover: 0 4px 20px -2px rgb(105, 105, 105, 0.5);
+  --font-shadow: var(--font-size);
+  padding: 16px 32px;
+  font-family: "Roboto";
+  font-weight: 500;
+  line-height: var(--font-size);
+  border-radius: 24px;
+  display: block;
+  outline: none;
+  text-decoration: none;
+  font-size: 2.2vh;
+  letter-spacing: 0.5px;
+  background: var(--background);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  font-family: var(--text-font);
+  transform: translateY(var(--y)) translateZ(0);
+  transition: transform var(--duration) ease, box-shadow var(--duration) ease;
+  width: 60%;
+}
+.button div {
+  display: flex;
+  overflow: hidden;
+  text-shadow: 0 var(--font-shadow) 0 var(--text);
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
+}
+.button div span {
+  display: block;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  font-style: normal;
+  transition: transform var(--duration) ease;
+  transform: translateY(var(--m)) translateZ(0);
+  color: var(--text);
+}
+.button div span:nth-child(1) {
+  transition-delay: 0.05s;
+}
+.button div span:nth-child(2) {
+  transition-delay: 0.1s;
+}
+.button div span:nth-child(3) {
+  transition-delay: 0.15s;
+}
+.button div span:nth-child(4) {
+  transition-delay: 0.2s;
+}
+.button div span:nth-child(5) {
+  transition-delay: 0.25s;
+}
+.button div span:nth-child(6) {
+  transition-delay: 0.3s;
+}
+.button div span:nth-child(7) {
+  transition-delay: 0.35s;
+}
+.button div span:nth-child(8) {
+  transition-delay: 0.4s;
+}
+.button div span:nth-child(9) {
+  transition-delay: 0.45s;
+}
+.button div span:nth-child(10) {
+  transition-delay: 0.5s;
+}
+.button div span:nth-child(11) {
+  transition-delay: 0.55s;
+}
+.button:hover {
+  --y: var(--move-hover);
+  color: var(--text);
+  --shadow: var(--shadow-hover);
+}
+.button:hover span {
+  --m: calc(var(--font-size) * -1);
+}
+.button.reverse {
+  --font-shadow: calc(var(--font-size) * -1);
+}
+.button.reverse:hover span {
+  --m: calc(var(--font-size));
+}
+
+/************************ Hero-Section *****************************/
+#hero {
+  margin-top: 12%;
+}
+.hero-intro {
+  margin: 3%;
+}
+.hero-intro #return_link {
+  width: 21%;
+}
+.hero-intro h6 {
+  font-size: 2.1vh;
+  font-family: var(--text-font);
+  color: var(--text-color);
+  letter-spacing: 1px;
+}
+.hero-intro h6 span {
+  float: right;
+  margin-top: 3%;
+}
+.hero-intro h1 {
+  font-size: 4vh;
+  font-family: var(--header-font);
+  color: var(--text-color);
+  letter-spacing: 1px;
+  margin-top: 12%;
+}
+.hero-intro p {
+  font-size: 1.8vh;
+  font-family: var(--text-font);
+  color: var(--text-color);
+  letter-spacing: 1px;
+}
+
+/************************ profile_settings-Section *****************************/
+.profile_setting-intro {
+  margin: 3%;
+}
+#profile_settings .card {
+  border: 1px solid var(--text-color);
+  margin-top: 5%;
+}
+#profile_settings #avatar_img {
+  width: 40%;
+}
+#profile_settings h2 {
+  font-size: 3.3vh;
+  font-family: var(--header-font);
+  color: var(--text-color);
+  letter-spacing: 1px;
+  text-align: center;
+  margin-top: 2%;
+}
+#profile_settings h6 {
+  font-size: 2.2vh;
+  font-family: var(--text-font);
+  color: var(--text-color);
+  letter-spacing: 1px;
+  text-align: center;
+}
+#profile_settings h5 {
+  font-size: 2.5vh;
+  font-family: var(--header-font);
+  color: var(--text-color);
+  letter-spacing: 1px;
+  text-align: center;
+}
+#profile_settings #approval_img {
+  width: 8%;
+}
+/******** settings-form *******************/
+#profile_settings form {
+  margin-top: 5%;
+}
+#profile_settings form label {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2.3vh;
+}
+#profile_settings form input {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2vh;
+  border: 1px solid var(--text-color);
+  margin-bottom: 2%;
+}
+#profile_settings form input:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+  border: 1px solid var(--accent-color);
+  background-color: transparent !important;
+}
+
+#profile_settings form select {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2vh;
+  border: 1px solid var(--text-color);
+  margin-bottom: 2%;
+}
+#profile_settings form select:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+  border: 1px solid var(--accent-color);
+  background-color: transparent !important;
+}
+
+.input-group-text {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2.3vh;
+  padding: auto;
+  border: 1px solid var(--text-color);
+}
+#user_img a,
+#user_img br {
+  display: none;
+}
+#profile_settings #btn_style {
+  color: var(--main-color);
+}
+/* #profile_username {
+  display: none;
+} */
+
+/********************** Extra small devices (portrait phones, less than 576px) ****************************/
+@media (max-width: 575.98px) {
+}
+/************************ Small devices (landscape phones, 576px and up) *****************************/
+@media (min-width: 576px) and (max-width: 767.98px) {
+  body {
+    display: none;
+  }
+}
+/***************************** Medium devices (tablets, 768px and up) ********************************/
+@media (min-width: 768px) and (max-width: 991.98px) {
+  body {
+    display: none;
+  }
+}
+/********************************** Large devices (desktops, 992px and up) *********************************/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  body {
+    display: none;
+  }
+}
+/************************ Extra large devices (large desktops, 1200px and up) ********************************/
+@media (min-width: 1200px) {
+  /****** hero-Section ******/
+  #hero {
+    margin-top: 4%;
+  }
+  .hero-intro {
+    margin: 3%;
+  }
+  .hero-intro #return_link {
+    width: 5%;
+  }
+  .hero-intro h6 {
+    font-size: 2.1vh;
+  }
+  .hero-intro h6 span {
+    margin-top: 0%;
+  }
+  .hero-intro h1 {
+    font-size: 6vh;
+    margin-top: 8%;
+  }
+  .hero-intro p {
+    font-size: 2.1vh;
+  }
+
+  /*********** profile_settings-Section ************/
+  #profile_settings #avatar_img {
+    width: 30%;
+  }
+  #profile_settings h2 {
+    font-size: 2.4vh;
+    margin-top: 2%;
+  }
+  #profile_settings h6 {
+    font-size: 2vh;
+  }
+  #profile_settings h5 {
+    font-size: 2.4vh;
+  }
+  #profile_settings #approval_img {
+    width: 6%;
+  }
+
+  /******** settings-form *******************/
+  #profile_settings form {
+    margin: 2%;
+  }
+  #profile_settings form label {
+    font-size: 2vh;
+  }
+  #profile_settings form input {
+    font-size: 1.9vh;
+    margin-bottom: 2%;
+  }
+  .input-group-text {
+    font-size: 2.3vh;
+  }
+  #profile_settings .button {
+    padding: 14px 12px;
+    font-size: 2vh;
+    width: 18%;
+  }
+}
+
+/************************ Extra large devices (extra large desktops, 1900px and up) ********************************/
+@media (min-width: 2000px) {
+  body {
+    display: none;
+  }
+}

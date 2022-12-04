@@ -1,0 +1,443 @@
+{% load static %}
+<!--  -->
+{% load humanize %}
+<!--  -->
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="More than a Doc..." />
+    <meta
+      name="keywords"
+      content="Task, ToDo list, list, todo, django todo, To-Do List"
+    />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static 'images/fav_icon.png' %}" />
+    <title>Update-and-Delete Task Page</title>
+
+    <!-- Preload CSS -->
+    <link
+      rel="preload"
+      as="style"
+      href="{% static '/css/update_and_delete.css' %}"
+    />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/update_and_delete.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!--=========================================== update-section ===============================-->
+        <div id="update">
+          <div class="container-fluid">
+            <div class="update-intro">
+              <h1><mark>EDIT TASK</mark></h1>
+
+              <div id="update-card" class="d-flex justify-content-center">
+                <div class="card">
+                  <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-md-4 align-self-center">
+                          <a href="{% url 'tasks' %}">
+                            <img
+                              id="return_img"
+                              src="{% static 'images/return_link-img.png' %}"
+                              class="img-fluid"
+                              alt="return_img"
+                            />
+                          </a>
+                        </div>
+                        <!-- End col -->
+
+                        <div class="col-md-8">
+                          <input
+                            type="submit"
+                            id="save_btn"
+                            name="UpdateForm"
+                            class="button"
+                            value="Update"
+                          />
+                        </div>
+                        <!-- End col -->
+                      </div>
+                      <!-- End row -->
+                    </div>
+                    <!-- End card-header -->
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        {{task.title}} <span>for</span>
+                        <mark>[{{task.account_owner}}]</mark>
+                      </h5>
+                      <!-- End card-title -->
+
+                      <hr id="form_divider" />
+
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="row g-3">
+                            <div class="col-md-12">
+                              <label for="inputTitle" class="form-label"
+                                >Title
+                                <img
+                                  id="label_icons"
+                                  src="{% static 'images/label-icons/text-size.png'%}"
+                                  alt="label_icons"
+                              /></label>
+                              {{form.title}}
+                            </div>
+                            <!-- End inputTitle-->
+
+                            <div class="col-md-4">
+                              <label for="inputTag" class="form-label"
+                                >Tag
+                                <img
+                                  id="label_icons"
+                                  src="{% static 'images/label-icons/price-tags.png'%}"
+                                  alt="label_icons"
+                              /></label>
+                              {{form.tag}}
+                            </div>
+                            <!-- End inputTag-->
+
+                            <div class="col-md-4">
+                              <label for="inputStatus" class="form-label"
+                                >Status
+                                <img
+                                  id="label_icons"
+                                  src="{% static 'images/label-icons/status.png'%}"
+                                  alt="label_icons"
+                              /></label>
+                              {{form.status}}
+                            </div>
+                            <!-- End inputStatus-->
+
+                            <div class="col-md-4">
+                              <label for="inputDueDate" class="form-label"
+                                >Due Date
+                                <img
+                                  id="label_icons"
+                                  src="{% static 'images/label-icons/date.png'%}"
+                                  alt="label_icons"
+                              /></label>
+                              {{form.due_date}}
+                            </div>
+                            <!-- End inputDueDate-->
+
+                            <center>
+                              <hr id="form_divider" />
+                            </center>
+
+                            <div id="tabs">
+                              <div class="tabset">
+                                <!-- Tab 1 -->
+                                <input
+                                  type="radio"
+                                  name="tabset"
+                                  id="tab1"
+                                  aria-controls="add_comment"
+                                  checked
+                                /><!-- End task_description input -->
+                                <label for="tab1">Add a Comment</label>
+
+                                <!-- Tab 2 -->
+                                <input
+                                  type="radio"
+                                  name="tabset"
+                                  id="tab2"
+                                  aria-controls="task_description"
+                                /><!-- End add_comment input -->
+                                <label for="tab2">Task Description</label>
+                                <!-- Tab 3 -->
+
+                                <div class="tab-panels">
+                                  <section id="add_comment" class="tab-panel">
+                                    <hr id="comment_line" />
+
+                                    <form action="" method="POST">
+                                      {% csrf_token %}
+                                      <div class="row">
+                                        <label
+                                          for="colFormLabelSm"
+                                          class="col-sm-2 col-form-label col-form-label-sm"
+                                          ><img
+                                            id="user_img"
+                                            class="rounded-circle img-fluid"
+                                            src="{{request.user.profile.imageURL}}"
+                                            alt="user_img"
+                                        /></label>
+                                        <div
+                                          class="col-md-8 align-self-center"
+                                          id="comment_input"
+                                        >
+                                          <input
+                                            type="text"
+                                            name="note"
+                                            class="form-control form-control-sm"
+                                            id="colFormLabelSm"
+                                            placeholder="start writing about this task..."
+                                          />
+                                        </div>
+                                        <!-- End comment_input-->
+                                        <div
+                                          class="col-md-2 align-self-center"
+                                          id="submit_btn"
+                                        >
+                                          <input
+                                            type="submit"
+                                            name="submitNote"
+                                            class="form-control form-control-icon"
+                                            id="colFormLabelSm"
+                                          />
+                                        </div>
+                                        <!-- End submit_btn-->
+                                      </div>
+                                      <!-- End comment_row-->
+                                    </form>
+                                    <!-- End form -->
+
+                                    <!-------------------------------- display-note_msg -------------------------------->
+                                    <div id="display-note_msg">
+                                      <div class="card">
+                                        <div class="card-body">
+                                          {% for note in display_note %}
+
+                                          <h5 class="sender_name">
+                                            {{profile}}
+                                            <span style="float: right"
+                                              >{{note.updated_time_stamp|naturaltime}}</span
+                                            >
+                                          </h5>
+                                          <p class="note_msg">
+                                            {{note}}
+                                            <a
+                                              href="javascript:window.top.location.reload(true)"
+                                            >
+                                              <img
+                                                class="delete-note"
+                                                data-note="{{note.id}}"
+                                                data-task="{{task.id}}"
+                                                id="delete_icon"
+                                                src="{% static 'images/delete_icon.svg' %}"
+                                                alt="delete_icon"
+                                              />
+                                            </a>
+                                          </p>
+                                          <!-- End note_msg -->
+
+                                          {% endfor %}
+                                        </div>
+                                        <!-- End card-body -->
+                                      </div>
+                                      <!-- End card -->
+                                    </div>
+                                    <!-------------------------------- End display-note_msg -------------------------------->
+
+                                    <hr id="comment_line-two" />
+                                  </section>
+                                  <!-- End task_description -->
+
+                                  <section
+                                    id="task_description"
+                                    class="tab-panel"
+                                  >
+                                    {{form.task_description}}
+                                    <!-- End textarea-->
+                                  </section>
+                                  <!-- End add_comment -->
+                                </div>
+                                <!-- End tab-panel -->
+                              </div>
+                              <!-- End tabsets -->
+                            </div>
+                            <!-- End tabs -->
+
+                            <center>
+                              <input
+                                type="submit"
+                                id="mob_btn"
+                                name="UpdateForm"
+                                class="button"
+                                value="Update Task"
+                              />
+                            </center>
+                            <!--  -->
+                          </div>
+                          <!-- End div-->
+                        </div>
+                        <!-- End col -->
+                      </div>
+                      <!-- End row -->
+                    </div>
+                    <!-- End card-body -->
+
+                    <div class="card-footer">
+                      <p>
+                        <span>[ {{task.status}} ]</span> - task
+
+                        <a
+                          href="#deleteModal"
+                          data-bs-toggle="modal"
+                          data-bs-target="#staticBackdrop"
+                        >
+                          <span>Delete Task</span>
+                        </a>
+                      </p>
+                    </div>
+                    <!-- End card-footer -->
+                  </form>
+                  <!-- End form-->
+                </div>
+                <!-- End card -->
+              </div>
+              <!-- End update-card -->
+            </div>
+            <!-- End update-intro-->
+          </div>
+          <!-- End container-fluid -->
+        </div>
+        <!-- End update -->
+
+        <!--=========================================== delete-modal ===============================-->
+        <div id="delete_modal">
+          <div
+            class="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">
+                    Delete Task
+                  </h5>
+                  <div id="close_modal">
+                    <img
+                      id="close_svg"
+                      src="{% static 'images/red_close.svg' %}"
+                      class="img-fluid"
+                      alt="close_svg"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    />
+                  </div>
+                  <!-- End close_modal -->
+                </div>
+                <!-- End modal-header -->
+                <div class="modal-body">
+                  <h6>
+                    Are you sure you want to delete
+                    <span>[ {{task.title}} ]</span> Task?
+                  </h6>
+                  <p>Note: This action can't be undone.</p>
+                  <img
+                    id="delete-modal_img"
+                    src="{% static 'images/sad_boy.png' %}"
+                    class="img-fluid d-flex mx-auto"
+                    alt="delete-modal_img"
+                  />
+                  <!--  -->
+                  <form action="" method="POST">
+                    {% csrf_token %}
+                    <center>
+                      <button
+                        type="button"
+                        class="btn"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <span>Cancel, keep this task</span>
+                      </button>
+
+                      <input
+                        type="submit"
+                        class="button"
+                        id="delete_btn"
+                        value="Delete Task"
+                      />
+                    </center>
+                    <!--  -->
+                  </form>
+                </div>
+                <!-- End modal-body -->
+              </div>
+              <!-- End modal-content -->
+            </div>
+            <!-- End modal-dialog -->
+          </div>
+          <!-- End modal -->
+        </div>
+        <!-- End delete-modal -->
+        <!--  -->
+        <!--=========================================== page--layout ===============================-->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script
+      scr="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+    ></script>
+    <script
+      scr="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+    ></script>
+    <script src="{% static '/js/update_and_delete.js' %}"></script>
+  </body>
+</html>
